@@ -1,0 +1,155 @@
+<!--
+***
+*** This file defines meta data that is used to generate SQL queries
+*** to the RefDB system.  The results of these queries will be used
+*** to generate RDF content via the Semantic Transformation System (STS).
+***
+-->
+<RDFMetaDataDefinitions>
+    <rdbms>
+        <categories>
+            <category value="oracle">
+                <query desc="user-index-info">
+                    <prefixes/>
+                    <join-details>
+                        <tables>
+                            <table id="1" name="user_indexes" alias="i">
+                                <!--select i.index_name, t.table_name, i.distinct_keys, t.monitoring-->
+                                <!--from user_indexes i-->
+                                <!--join user_tables t-->
+                                <!--on i.table_name = t.table_name; -->
+                                <select-column name="index_name"/>
+                                <select-column name="table_name"/>
+                                <join-columns>
+                                    <join-column name="table_name" jt-on="2"/>
+                                </join-columns>
+                            </table>
+                            <table id="2" name="user_tables" alias="t">
+                                <select-column name="distinc_keys"/>
+                                <select-column name="monitoring"/>
+                                <join-columns>
+                                    <join-column name="user_tables" jt-on="1"/>
+                                </join-columns>
+                            </table>
+                        </tables>
+                    </join-details>
+                </query>
+            </category>
+            <category value="genes">
+                <rdf-prefixes>
+                    <prefix uri="http://www.data2discovery.com/ns#" name="our"/>
+                    <prefix uri="http://www.data2discovery.com/ref/gene/" name="our_gene"/>
+                    <prefix uri="http://www.w3.org/TR/rdf-schema/" name="rdf"/>
+                </rdf-prefixes>
+                <triple-def>
+                    <subject name="our_gene">
+                        <predicate p="name"/>
+                        <predicate p="symbol"/>
+                        <predicate p="type"/>
+                    </subject>
+                </triple-def>
+                <query desc="genes-and-tissues">
+                    <join-details>
+                        <tables>
+                            <table id="1" name="gene" alias="g">
+                                <select-column name="rownum" alias-col="false"/>
+                                <select-column name="gene_name" alias-col="true"/>
+                                <select-column name="gene_symbol" alias-col="true"/>
+                                <select-column name="gene_id" alias-col="true"/>
+                                <join-columns>
+                                    <join-column name="gene_id" jt-on="3"/>
+                                </join-columns>
+                            </table>
+                            <table id="2" name="tissue" alias="t">
+                                <select-column name="tissue_name" alias-col="true"/>
+                                <join-columns>
+                                    <join-column name="tissue_id" jt-on="3"/>
+                                </join-columns>
+                            </table>
+                            <table id="3" name="gene_tissue" alias="gt">
+                                <join-columns>
+                                    <join-column name="gene_id" jt-on="1"/>
+                                    <join-column name="tissue_id" jt-on="2"/>
+                                </join-columns>
+                            </table>
+                        </tables>
+                    </join-details>
+                    <!-- Free text where; e.g. where gene_symbol in ('HGNC-5') -->
+                    <where-clause>WHERE 1=1</where-clause>
+                </query>
+            </category>
+            <category value="uom">
+                <rdf-prefixes>
+                    <prefix uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" name="rdf"/>
+                    <prefix uri="http://www.w3.org/2000/01/rdf-schema#" name="rdfs"/>
+                    <prefix uri="http://www.w3.org/2002/07/owl#" name="own"/>
+                    <prefix uri="http://www.w3.org/2001/XMLSchema#" name="xsd"/>
+                    <prefix uri="http://purl.org/dc/elements/1.1/" name="dc"/>
+                    <prefix uri="http://purl.org/dc/terms/" name="dcterms"/>
+                    <prefix uri="http://xmlns.com/foaf/0.1/" name="foaf"/>
+                    <prefix uri="http://www.w3.org/2004/02/skos/core#" name="skos"/>
+                    <prefix uri="http://purl.obolibrary.org/obo/" name="obo"/>
+                    <prefix uri="http://semanticscience.org/resource/" name="sio"/>
+                    <prefix uri="http://www.lilly.com/refdb#" name="refdb"/>
+                    <prefix uri="http://www.lilly.com/refdb/uom/" name="refdb_uom"/>
+                    <prefix uri="http://www.lilly.com/refdb/status/" name="refdb_sts"/>
+                </rdf-prefixes>
+
+                <!--refdb:uom-->
+                <!--rdf:type rdfs:Class ;-->
+                <!--rdfs:label "Unit of measure" .-->
+
+                <!--refdb:status-->
+                <!--rdf:type rdfs:Class ;-->
+                <!--rdfs:label "Status of RefDb item" .-->
+
+                <!--refdb_sts:1-->
+                <!--ref:type refdb:status ;-->
+                <!--rdfs:label "Active" ;-->
+                <!--rdfs:comment "Item is Approved and Active" .-->
+
+                <!--refdb_sts:2-->
+                <!--ref:type refdb:status ;-->
+                <!--rdfs:label "Pending" ;-->
+                <!--rdfs:comment "Item is pending approval" .-->
+
+                <triple-def>
+                    <subject name="our_gene">
+                        <predicate p="name"/>
+                        <predicate p="symbol"/>
+                        <predicate p="type"/>
+                    </subject>
+                </triple-def>
+                <query desc="genes-and-tissues">
+                    <join-details>
+                        <tables>
+                            <table id="1" name="ref_uom" alias="uom">
+                                <select-column name="rownum" alias-col="false"/>
+                                <select-column name="gene_name" alias-col="true"/>
+                                <select-column name="gene_symbol" alias-col="true"/>
+                                <select-column name="gene_id" alias-col="true"/>
+                                <join-columns>
+                                    <join-column name="gene_id" jt-on="3"/>
+                                </join-columns>
+                            </table>
+                            <table id="2" name="ref_sts" alias="sts">
+                                <select-column name="tissue_name" alias-col="true"/>
+                                <join-columns>
+                                    <join-column name="tissue_id" jt-on="3"/>
+                                </join-columns>
+                            </table>
+                            <table id="3" name="gene_tissue" alias="gt">
+                                <join-columns>
+                                    <join-column name="gene_id" jt-on="1"/>
+                                    <join-column name="tissue_id" jt-on="2"/>
+                                </join-columns>
+                            </table>
+                        </tables>
+                    </join-details>
+                    <!-- Free text where; e.g. where gene_symbol in ('HGNC-5') -->
+                    <where-clause>WHERE 1=1</where-clause>
+                </query>
+            </category>
+        </categories>
+    </rdbms>
+</RDFMetaDataDefinitions>

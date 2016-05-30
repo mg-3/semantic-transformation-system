@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:oracle:thin:@salk.crgumkmgv6z9.us-east-1.rds.amazonaws.com:1521:ORCL</property>
+    <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <mapping resource="persistence.xml"/>
+    <mapping class="com.data2discovery.sts.data.model.RefStsEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefUomEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefBlgclRsltTypEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefRsltLvlEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefVldUomEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefBlgclMthdEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefBlgclMthdTrgtEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefBlgclMthdVrsnEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefBlgclTrgtEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefExpctdRsltTypEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefGeneEntity"/>
+    <mapping class="com.data2discovery.sts.data.model.RefTrgtGeneAsgnmntEntity"/>
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

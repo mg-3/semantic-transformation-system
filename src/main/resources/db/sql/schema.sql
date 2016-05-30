@@ -1,0 +1,19 @@
+DROP TABLE GENE;
+DROP TABLE TISSE;
+DROP TABLE GENE_TISSUE;
+
+CREATE TABLE GENE (
+  gene_id     VARCHAR2(20),
+  gene_symbol VARCHAR2(20),
+  gene_name   VARCHAR2(200)
+);
+CREATE TABLE TISSUE (
+  tissue_id   INTEGER,
+  tissue_name VARCHAR2(200)
+);
+CREATE TABLE GENE_TISSUE (
+  gene_id   VARCHAR(20),
+  tissue_id INTEGER
+);
+
+

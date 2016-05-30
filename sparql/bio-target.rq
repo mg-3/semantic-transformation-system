@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX refdb: <http://www.lilly.com/refdb#>
+prefix refdb_gene: <http://www.lilly.com/refdb/gene/>
+prefix refdb_rslt_type: <http://www.lilly.com/refdb/result_type/>
+prefix refdb_vocab: <http://www.lilly.com/refdb/vocab/>
+
+SELECT ?rt ?label ?sts ?comment
+WHERE {
+ ?rt rdf:type refdb:bio_target ;
+   rdfs:label ?label ;
+   rdfs:comment ?comment ;
+   refdb_vocab:hasStatus ?sts .
+}

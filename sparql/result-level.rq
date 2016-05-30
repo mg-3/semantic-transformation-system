@@ -1,0 +1,12 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX refdb: <http://www.lilly.com/refdb#>
+prefix refdb_rslt_lvl: <http://www.lilly.com/refdb/result_type/>
+prefix refdb_vocab: <http://www.lilly.com/refdb/vocab/>
+
+SELECT ?rl ?label ?comment
+WHERE {
+ ?rl rdf:type refdb:result_level ;
+   rdfs:label ?label ;
+   rdfs:comment ?comment
+}

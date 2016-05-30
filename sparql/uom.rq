@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX refdb: <http://www.lilly.com/refdb#>
+PREFIX refdb_vocab: <http://www.lilly.com/refdb/vocab/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+SELECT ?uom ?label ?sts ?desc
+WHERE {
+ ?uom rdf:type refdb:uom ;
+   rdfs:label ?label ;
+   refdb_vocab:hasStatus ?sts ;
+  dc:description ?desc .
+}

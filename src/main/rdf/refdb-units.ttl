@@ -1,0 +1,48 @@
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix qudt:    <http://qudt.org/schema/qudt#> .
+@prefix qudt-dimension:  <http://qudt.org/vocab/dimension#> .
+@prefix qudt-quantity:  <http://qudt.org/vocab/quantity#> .
+@prefix qudt-unit-1.1:  <http://qudt.org/1.1/vocab/unit#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unit:    <http://qudt.org/vocab/unit#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix refdb-unit:     <http://www.lilly.com/unit/> .
+
+refdb-unit:GramPerDay
+      rdf:type qudt:SIUnit , qudt  pp:MassPerTimeUnit , qudt:DerivedUnit ;
+      rdfs:label "Gram per Day"^^xsd:string ;
+      qudt:abbreviation "g/day"^^xsd:string ;
+#      qudt:code "2056"^^xsd:string ;
+#    base = kg/sec. g/day = kg/sec * 1000 / 60 / 60 / 24
+      qudt:conversionMultiplier
+              "0.011574074"^^xsd:double ;
+      qudt:conversionOffset
+              "0.0"^^xsd:double ;
+      qudt:symbol "g/day"^^xsd:string .
+
+refdb-unit:MicroliterPerAnimalPerDay
+      rdf:type qudt:SIUnit , qudt  refdb:VolumePerCritterPerDay , qudt:DerivedUnit ;
+      rdfs:label "Gram per Day"^^xsd:string ;
+      qudt:abbreviation "g/day"^^xsd:string ;
+#      qudt:code "2056"^^xsd:string ;
+#    base = kg/sec. g/day = kg/sec * 1000 / 60 / 60 / 24
+      qudt:conversionMultiplier
+              "1.00000"^^xsd:double ;
+      qudt:conversionOffset
+              "0.0"^^xsd:double ;
+      qudt:symbol "mml/animal/day"^^xsd:string .
+
+refdb-unit:Week
+      rdf:type qudt:TimeUnit , qudt:UsedWithSIUnit ;
+      rdfs:label "Week"^^xsd:string ;
+      qudt:abbreviation "d"^^xsd:string ;
+      qudt:code "0490"^^xsd:string ;
+      qudt:conversionMultiplier
+              "604800"^^xsd:double ;
+      qudt:conversionOffset
+              "0.0"^^xsd:double ;
+      qudt:description "7 days"^^xsd:string ;
+      qudt:symbol "w"^^xsd:string ;
+      skos:exactMatch <http://dbpedia.org/resource/Week> .
+

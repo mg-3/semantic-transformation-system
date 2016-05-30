@@ -1,0 +1,24 @@
+@prefix refdb-unit:     <http://www.lilly.com/unit/> .
+@prefix refdb_uom:     <http://www.lilly.com/refdb/entity/uom/> .
+@prefix unit:    <http://qudt.org/vocab/unit#> .
+@prefix ops_units: <http://www.openphacts.org/units/>
+@prefix qudt:   <http://qudt.org/schema/qudt#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix uo:     <http://purl.obolibrary.org/obo/> .
+
+refdb_uom:1 skos:exactMatch unit:Percent .
+refdb_uom:7 skos:exactMatch unit:DegreeCelsius .
+refdb_uom:10 skos:exactMatch unit:Number .
+refdb_uom:11 skos:exactMatch refdb-unit:GramPerDay .
+refdb_uom:12 skos:exactMatch unit:Hertz .
+refdb_uom:13 skos:exactMatch unit:Inch .
+refdb_uom:14 skos:exactMatch unit:Kilogram .
+refdb_uom:15 skos:exactMatch ops_units:Milligram .
+refdb_uom:17 skos:exactMatch unit:Mega .
+refdb_uom:18 skos:exactMatch unit:MinuteTime .
+refdb_uom:19 skos:exactMatch ops_units:Milliliter .
+refdb_uom:21 skos:exactMatch refdb-unit:MicroliterPerAnimalPerDay .
+refdb_uom:22 skos:exactMatch ops_units:Micromolar .
+refdb_uom:24 skos:exactMatch unit:Volt .
+refdb_uom:27 skos:exactMatch refdb-unit:Week .
+refdb_uom:28 skos:exactMatch unit:Year365Day .

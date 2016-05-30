@@ -1,0 +1,141 @@
+/*
+ * RefDb templates used to create "Biological Method" RDF
+ */
+prefix(pfx) ::= <<
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix sio: <http://semanticscience.org/resource/> .
+@prefix ops_units: <http://www.openphacts.org/units/> .
+@prefix bao: <http://www.bioassayontology.org/bao#> .
+@prefix refdb: <http://www.lilly.com/refdb#> .
+@prefix refdb_vocab: <http://www.lilly.com/refdb/vocab/> .
+@prefix refdb_sts: <http://www.lilly.com/refdb/status/> .
+@prefix refdb_uom: <http://www.lilly.com/refdb/uom/> .
+@prefix refdb_rslt_type: <http://www.lilly.com/refdb/result_type/> .
+@prefix refdb_rslt_lvl: <http://www.lilly.com/refdb/result_level/> .
+@prefix refdb_bio_mthd: <http://www.lilly.com/refdb/bio_method/> .
+@prefix refdb_bio_mthd_ver: <http://www.lilly.com/refdb/bio_method_version/> .
+@prefix refdb_bio_mthd_typ: <http://www.lilly.com/refdb/bio_method_type/> .
+@prefix refdb_bio_tgt: <http://www.lilly.com/refdb/bio_target/> .
+@prefix refdb_gene: <http://www.lilly.com/refdb/gene/> .
+
+refdb:uom
+     rdf:type rdfs:Class ;
+     rdfs:label "Unit of measure" .
+
+refdb:status
+     rdf:type rdfs:Class ;
+     rdfs:label "Status of RefDb item" .
+
+refdb:result_level
+     rdf:type rdfs:Class ;
+     rdfs:label "Processing level of RefDb result type" .
+
+refdb:result_type
+     rdf:type rdfs:Class ;
+     rdfs:label "Type of RefDb result" .
+
+refdb:bio_method
+     rdf:type rdfs:Class ;
+     rdfs:label "Biological method (assay protocol)" .
+
+refdb:bio_method_version
+     rdf:type rdfs:Class ;
+     rdfs:label "Biological method instance (assay/experiment)" .
+
+refdb:bio_method_type
+     rdf:type rdfs:Class ;
+     rdfs:label "Biological method type" .
+
+refdb:bio_target
+     rdf:type rdfs:Class ;
+     rdfs:label "Biological target" .
+
+refdb:gene
+     rdf:type rdfs:Class ;
+     rdfs:label "Gene, species as specified" .
+>>
+
+resultLevelTemplate(results, resultPrefix) ::= <<
+$prefix(resultPrefix)$
+
+$results:{result|
+refdb_rslt_lvl:$result.refRsltLvlId$
+     rdf:type refdb:result_level ;
+     rdfs:label "$result.rsltLvlShrtNm$" ;
+     rdfs:comment "$result.rsltLvlDescTxt$" .
+ }; separator="\n"$
+
+>>
+
+resultTypeTemplate(results, resultPrefix) ::= <<
+$prefix(resultPrefix)$
+
+$results:{result|
+refdb_rslt_type:$result.refBlgclRsltTypId$
+     rdf:type refdb:result_type ;
+     rdfs:label "$result.blgclRsltTypShrtNm$" ;
+     rdfs:comment "$result.blgclRsltTypNm$" ;
+     dc:description "$result.blgclRsltTypDescTxt$" ;
+     refdb_vocab:hasStatus refdb_sts:$result.refStsId$ ;
+     refdb_vocab:hasResultLevel refdb_rslt_lvl:$result.refRsltLvlId$ .
+ }; separator="\n"$
+>>
+
+bioMethodTemplate(results, resultPrefix) ::= <<
+$prefix(resultPrefix)$
+
+$results:{result|
+refdb_bio_mthd:$result.refBlgclMthdId$
+     rdf:type refdb:bio_method ;
+     rdfs:label "$result.blgclMthdDrvdShrtNm$" ;
+     dc:description "$result.blgclMthdDescTxt$" ;
+     refdb_vocab:hasStatus refdb_sts:$result.refStsId$ ;
+     refdb_vocab:hasBioMethodType refdb_bio_mthd_typ:$result.refBlgclMthdTypId$ .
+ }; separator="\n"$
+>>
+
+bioMethodVersionTemplate(results, resultPrefix) ::= <<
+$prefix(resultPrefix)$
+
+$results:{result|
+refdb_bio_mthd_ver:$result.refBlgclMthdVrsnId$
+     rdf:type refdb:bio_method_version ;
+     rdfs:label "$result.mthdVrsnDrvdShrtNm$" ;
+     rdfs:comment "$result.mthdVrsnDescTxt$" ;
+     dc:description "$result.mthdVrsnDrvdNm$" ;
+     refdb_vocab:hasStatus refdb_sts:$result.refStsId$ ;
+     refdb_vocab:hasBioMethod refdb_bio_mthd:$result.refBlgclMthdId$ .
+ }; separator="\n"$
+>>
+
+bioTargetTemplate(results, resultPrefix) ::= <<
+$prefix(resultPrefix)$
+
+$results:{result|
+refdb_bio_tgt:$result.refBlgclTrgtId$
+     rdf:type refdb:bio_target ;
+     rdfs:label "$result.blgclTrgtDrvdShrtNm$" ;
+     rdfs:comment "$result.blgclTrgtDrvdNm$" ;
+     dc:description "$result.blgclTrgtDescTxt$" ;
+     refdb_vocab:hasStatus refdb_sts:$result.refStsId$ .
+ }; separator="\n"$
+>>
+
+geneTemplate(results, resultPrefix) ::= <<
+$prefix(resultPrefix)$
+
+$results:{result|
+refdb_gene:$result.refGeneId$
+     rdf:type refdb:gene ;
+     rdfs:label "$result.geneSymbl$" ;
+     refdb_vocab:hasStatus refdb_sts:$result.refStsId$ .
+ }; separator="\n"$
+>>

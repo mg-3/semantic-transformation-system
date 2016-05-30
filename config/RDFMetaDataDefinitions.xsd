@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="RDFMetaDataDefinitions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="rdbms"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="rdbms">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="categories"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="categories">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="category"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="category">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="rdf-prefixes"/>
+                <xs:element ref="query"/>
+            </xs:sequence>
+            <xs:attribute name="value" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="rdf-prefixes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="prefix"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prefix">
+        <xs:complexType>
+            <xs:attribute name="name" use="required" type="xs:NCName"/>
+            <xs:attribute name="uri" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="query">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="prefixes"/>
+                <xs:element ref="join-details"/>
+                <xs:element minOccurs="0" ref="where-clause"/>
+            </xs:sequence>
+            <xs:attribute name="desc" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prefixes">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="join-details">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tables"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tables">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="table"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="table">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-column"/>
+                <xs:element ref="join-columns"/>
+            </xs:sequence>
+            <xs:attribute name="alias" use="required" type="xs:NCName"/>
+            <xs:attribute name="id" use="required" type="xs:integer"/>
+            <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="select-column">
+        <xs:complexType>
+            <xs:attribute name="alias-col" type="xs:boolean"/>
+            <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="join-columns">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="join-column"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="join-column">
+        <xs:complexType>
+            <xs:attribute name="jt-on" use="required" type="xs:integer"/>
+            <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="where-clause" type="xs:string"/>
+</xs:schema>

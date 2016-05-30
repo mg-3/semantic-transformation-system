@@ -1,0 +1,22 @@
+/*
+ * RefDb templates used to create RDF-extracting
+ * SQL queries
+ */
+
+metaToQuery(joins,desc,sc,w,limit) ::= <<
+SELECT$\n$$sc:{c|$\t$$c.name$}; separator=",\n"$
+FROM $joins:{j|$j$}; separator="\n"$
+$w$
+>>
+
+metaToQueryWithLimits(joins,desc,sc,w,limit)::= <<
+-- Query for "$name$"
+$if(limit)$
+select * from (
+$endif$
+$metaToQuery(joins,desc,sc,w,limit)$
+$if(limit)$
+) where rownum <= $limit$
+$endif$
+>>
+

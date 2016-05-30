@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Semantic Transformation System</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/css/bootstrap.min.css"
+          rel="stylesheet" media="screen" />
+          <!--th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"-->
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"/>
+    <script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/js/bootstrap.min.js"/>
+            <!--th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>-->
+
+    <script>
+        $(function() {
+            console.log("Testing");
+            $("#btn").click(function() {
+                console.log("Clicked");
+                $.getJSON("http://localhost:8080/beans", function(json) {
+                    console.log(json[0]["context"]);
+                    console.log(json[0]["beans"]);
+                    $.each(json[0]["beans"], function(k,v) {
+                        if (v["type"].contains("com.data2discovery")) {
+//                            console.log(v["bean"]);
+//                            $(".beanName").append(v["bean"]).appendTo("#beans");
+                            $("#{beanInfo}").append(v["bean"]).appendTo("#beans");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h2 th:text="${title}"/>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span4">
+            <ol>
+                <li>one</li>
+                <li>two</li>
+                <li>three</li>
+            </ol>
+        </div>
+        <div class="span8">
+            <table th:border="2">
+                <tbody>
+                <tr th:each="gene : ${genes}">
+                    <td class="td1" th:text="${gene.getGeneId()}">NO_SYMBOL</td>
+                    <td class="td1" th:text="${gene.getGeneSymbol()}">NO_SYMBOL</td>
+                    <td class="td1" th:text="${gene.getGeneName()}">NO_NAME</td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="button" id="btn" value="Send"/>
+        </div>
+    </div>
+</div>
+<div class="beans">
+    <p class="beanName"></p>
+</div>
+</body>
+</html>

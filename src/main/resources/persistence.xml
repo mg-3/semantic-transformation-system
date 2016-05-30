@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.data2discovery.sts.data.model.RefStsEntity">
+        <table name="REF_STS" schema="REFDB" catalog=""/>
+        <attributes>
+            <id name="refStsId">
+                <column name="REF_STS_ID" precision="12"/>
+            </id>
+            <basic name="stsNm">
+                <column name="STS_NM" length="50"/>
+            </basic>
+            <basic name="stsShrtNm">
+                <column name="STS_SHRT_NM" length="15"/>
+            </basic>
+            <basic name="stsDescTxt">
+                <column name="STS_DESC_TXT" nullable="false" length="500"/>
+            </basic>
+            <basic name="chngTmstmp">
+                <column name="CHNG_TMSTMP" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="com.data2discovery.sts.data.model.RefUomEntity">
+        <table name="REF_UOM" schema="REFDB" catalog=""/>
+        <attributes>
+            <id name="refUomId">
+                <column name="REF_UOM_ID" precision="12"/>
+            </id>
+            <basic name="uomNm">
+                <column name="UOM_NM" length="50"/>
+            </basic>
+            <basic name="uomShrtNm">
+                <column name="UOM_SHRT_NM" length="15"/>
+            </basic>
+            <basic name="uomDescTxt">
+                <column name="UOM_DESC_TXT" nullable="false" length="500"/>
+            </basic>
+            <basic name="refStsId">
+                <column name="REF_STS_ID" precision="12"/>
+            </basic>
+            <basic name="stsDt">
+                <column name="STS_DT" precision="-1"/>
+            </basic>
+            <basic name="chngTmstmp">
+                <column name="CHNG_TMSTMP" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
